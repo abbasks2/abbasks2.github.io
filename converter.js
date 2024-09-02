@@ -43,7 +43,7 @@ function convert(choice) {
 		}
 }
 	
-const formulas =[ ['Celcius', 'Fahrenheit', 0, 9/5, 32],
+const formulas =[ ['Celsius', 'Fahrenheit', 0, 9/5, 32],
                              ['Miles', 'Kms', 0, 1.609, 0] ];
 
 function convertInput(value, fromUnit, toUnit) {
