@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
   <head>
+    <link rel="stylesheet" href="converter.css">
+    <link rel="manifest" href="/manifest.json">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2" />
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="converter.css">
-    <title>Temperature converter</title>
+    <link rel="shortcut icon" href="/icon512.png" />
+    <title>Easy Converter</title>
   </head>
+
   <body>
-    <h1>Temperature converter</h1>
     <form id="converter">
-        <label for="input-temp">temperature</label>
-        <input type="text" id="input-temp" name="input-temp" value="20" />
-        <label for="input-unit">from</label>
-        <select id="input-unit" name="input-unit">
-          <option value="c" selected>Celsius</option>
-          <option value="f">Fahrenheit</option>
-          <option value="k">Kelvin</option>
+        <h1>Easy Converter</h1>
+        <button type="button" onclick="convert('Temperature')">Convert Temperature</button>
+		<p>
+        <button type="button" onclick="convert('Distance')">Convert Distance</button>
+		<p>
+		<p>
+
+        <label for="input-unit-label">from</label>
+		 <select id="input-unit" name="input-unit-name">
         </select>
-        <label for="output-unit">to</label>
+        <p>
+        <label for="output-unit">to&nbsp;&nbsp;</label>
         <select id="output-unit" name="output-unit">
-          <option value="c">Celsius</option>
-          <option value="f" selected>Fahrenheit</option>
-          <option value="k">Kelvin</option>
         </select>
-        <output name="output-temp" id="output-temp" for="input-temp input-unit output-unit">68 F</output>
-    </form>
-    <script src="converter.js"></script>
-    <script>
-        if('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('/sw.js', { scope: '/' });
-        }
-    </script>
+		<p>
+		<label for="input-temp">Input </label>
+	        <input type="text" id="input-temp" name="input-temp" size="5" value="0" />
+			<output name = "input-unit-description" id = "input-unit-description">X</output> 
+		<p>
+		<label for "output-temp">Output:&nbsp;</label>
+		    <output name="output-temp" id="output-temp" for="input-temp input-unit output-unit">0</output>
+		<script src="converter.js"></script>
+      </form>
+
   </body>
+
 </html>
