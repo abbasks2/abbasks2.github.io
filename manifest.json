@@ -1,8 +1,8 @@
 {
     "lang": "en-us",
-    "name": "Temperature converter app",
-    "short_name": "Temperature converter",
-    "description": "A basic temperature converter application that can convert to and from Celsius, Kelvin, and Fahrenheit",
+    "name": "Easy converter app",
+    "short_name": "Easy converter",
+    "description": "Converts temperature (Fahrenheit to / from Celsius) and distance (miles to / from Kms)",
     "start_url": "/",
     "background_color": "#2f3d58",
     "theme_color": "#2f3d58",
