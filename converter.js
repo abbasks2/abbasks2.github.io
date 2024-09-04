@@ -57,10 +57,10 @@ const formulas =[ ['Celsius', 'Fahrenheit', 0, 9/5, 32],
 							 ['cms', 'inches', 0, 1/2.54, 0] ];
 
 function convertInput(value, fromUnit, toUnit) {
-	alert('in convertInput with ' + value + ', ' + fromUnit + ', ' + toUnit);
+	// alert('in convertInput with ' + value + ', ' + fromUnit + ', ' + toUnit);
     for (let i=0; i < formulas.length; i++) {
         if (fromUnit === formulas[i][0]) {
-			alert('fromUnit found');
+			// alert('fromUnit found');
 			return ( ( (formulas[i][2] + value) * formulas[i][3] ) + formulas[i][4]);
 		} else if (fromUnit === formulas[i][1]) {
 			return (((value - formulas[i][4]) / formulas[i][3]) - formulas[i][2]);
@@ -76,6 +76,6 @@ form.addEventListener('input', () => {
   const toUnit = toUnitField.value;
   inputUnitDescription.value = fromUnit.toUpperCase();
   const outputValue = convertInput(inputValue, fromUnit, toUnit);
-   alert('outputValue = ' + outputValue);
+  //  alert('outputValue = ' + outputValue);
   outputField.value = outputValue.toFixed(2) + ' ' + toUnit.toUpperCase();
 });
