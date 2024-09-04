@@ -34,21 +34,33 @@ function add_distance_options() {
 	add_options('output-unit', 'm', 'Miles', 'k', 'Kms');
 }
 
+
+function add_length_options() {
+	add_options('input-unit', 'c', 'cms', 'i', 'inches');
+	add_options('output-unit', 'i', 'inches', 'c', 'cms');
+}
+
 function convert(choice) {
 		conversion_of = choice;
 		if (choice == 'Temperature') {
 			add_temperature_options();
 		} else if (choice == 'Distance') {
 			add_distance_options();
+		} else if (choice == 'Length') {
+			add_length_options();
 		}
 }
 	
 const formulas =[ ['Celsius', 'Fahrenheit', 0, 9/5, 32],
-                             ['Miles', 'Kms', 0, 1.609, 0] ];
+                             ['Miles', 'Kms', 0, 1.609, 0] ,
+                             ['USD', 'INR', 0, 85, 0] ,
+							 ['cms', 'inches', 0, 1/2.54, 0] ];
 
 function convertInput(value, fromUnit, toUnit) {
+	alert('in convertInput with ' + value + ', ' + fromUnit + ', ' + toUnit);
     for (let i=0; i < formulas.length; i++) {
         if (fromUnit === formulas[i][0]) {
+			alert('fromUnit found');
 			return ( ( (formulas[i][2] + value) * formulas[i][3] ) + formulas[i][4]);
 		} else if (fromUnit === formulas[i][1]) {
 			return (((value - formulas[i][4]) / formulas[i][3]) - formulas[i][2]);
@@ -64,5 +76,6 @@ form.addEventListener('input', () => {
   const toUnit = toUnitField.value;
   inputUnitDescription.value = fromUnit.toUpperCase();
   const outputValue = convertInput(inputValue, fromUnit, toUnit);
+   alert('outputValue = ' + outputValue);
   outputField.value = outputValue.toFixed(2) + ' ' + toUnit.toUpperCase();
 });
