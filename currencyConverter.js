@@ -25,6 +25,11 @@ function add_options_from() {
 		if (currencyListFrom[i] == "xxx") {
 			continue;
 		}
+		if (i > 0) {
+			if (currencyListFrom[i] == currencyListFrom[0]) {
+				continue;
+			}
+		}
         var option_1 = document.createElement("option");
 	    option_1.text = currencyListFrom[i];
 	    option_1.value = currencyListFrom[i];;
@@ -39,6 +44,11 @@ function add_options_to() {
 	for (let i=0; i < currencyListTo.length; i++) {
     	if (currencyListTo[i] == "xxx") {
 			continue;
+		}
+		if (i > 0) {
+			if (currencyListTo[i] == currencyListTo[0]) {
+				continue;
+			}
 		}
         var option_1 = document.createElement("option");
 	    option_1.text = currencyListTo[i];
@@ -92,9 +102,12 @@ function displayResults(currency) {
 	// alert("in displayResults");
 	currencyTable = currency;
 	var fromCurrency = localStorage.getItem("fromCurrency");
-	currencyListFrom[0] = fromCurrency;
-	var toCurrency     = localStorage.getItem("toCurrency");
-	currencyListTo[0] = toCurrency;
+	if (!fromCurrency) {
+	} else {
+	    currencyListFrom[0] = fromCurrency;
+	    var toCurrency     = localStorage.getItem("toCurrency");
+	    currencyListTo[0] = toCurrency;
+	}
 	// alert("fromCurrency and toCurrency = " + fromCurrency + ", " + toCurrency);
     add_options_from();
 	add_options_to();
