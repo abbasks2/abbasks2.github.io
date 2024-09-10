@@ -2,40 +2,43 @@
 <html lang="en-US" dir="ltr">
   <head>
     <link rel="stylesheet" href="converter.css">
+	<style>
+    .button {
+        background-color: #04AA6D; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+       display: inline-block;
+       font-size: 16px;
+	   width: 150px;
+	   border-radius:8px;
+    }
+    </style>
     <link rel="manifest" href="/manifest.json">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="shortcut icon" href="/icon512.png" />
     <title>Easy Converter</title>
+	<script src="converterMenu.js"></script>
   </head>
 
   <body>
-    <form id="converter">
-        <h1>Easy Converter</h1>
-        <button type="button" onclick="convert('Temperature')">Convert Temperature</button>
+    <form id="converionMenu">
+        <h2>Easy Converter - free</h2>
+        <button type="button" class = "button" onclick="convert('Temperature')">Temperature</button>
 		<p>
-        <button type="button" onclick="convert('Distance')">Convert Distance</button>
+        <button type="button" class = "button" onclick="convert('Distance')">Distance</button>
 		<p>
-        <button type="button" onclick="convert('Length')">Convert Length</button>
+        <button type="button" class = "button" onclick="convert('Length')">Length</button>
+		<p>
+        <button type="button" class = "button" onclick="convert('Currency')">Currency </button>
 		<p>
 		<p>
-
-        <label for="input-unit-label">from</label>
-		 <select id="input-unit" name="input-unit-name">
-        </select>
-        <p>
-        <label for="output-unit">to&nbsp;&nbsp;</label>
-        <select id="output-unit" name="output-unit">
-        </select>
 		<p>
-		<label for="input-temp">Input </label>
-	        <input type="text" id="input-temp" name="input-temp" size="5" value="0" />
-			<output name = "input-unit-description" id = "input-unit-description">X</output> 
-		<p>
-		<label for "output-temp">Output:&nbsp;</label>
-		    <output name="output-temp" id="output-temp" for="input-temp input-unit output-unit">0</output>
-		<script src="converter.js"></script>
-      </form>
+		<h5>Developer email id: abbasks@gmail.com</h5>
+    </form>
 
   </body>
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="converter.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="icon512.png" />
+    <title>Currency Conversion</title>
+  </head>
+
+  <body onload="startUp()">
+    <form id="converter">
+	    <a href="index.html">Go to Main Menu</a>
+
+        <h2>Convert <span id="conversionChoice"></span></h2>
+        <label for="input-unit-label">from</label>
+		 <select id="input-unit" name="input-unit-name">
+        </select>
+       <br>
+        <label for="output-unit">to&nbsp;&nbsp;</label>
+        <select id="output-unit" name="output-unit-name"></select>
+        <p>
+		<label for="input-temp">Input </label>
+	        <input type="text" id="input-temp" name="input-temp" size="5" value="1" />
+			<output name = "input-unit-description" id = "input-unit-description"></output> 
+		<p>
+		<label for "output-temp">Output:&nbsp;</label>
+		    <output name="output-temp" id="output-temp" for="input-temp input-unit output-unit">0</output>
+      </form>
+	<script src="currencyConverter.js"></script>
+
+  </body>
+
+</html>
