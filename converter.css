@@ -15,6 +15,10 @@ html {
     place-items: center;
   }
   
+  .button-container {
+  display: flex;
+}
+  
   #converter {
     width: 15rem;
     padding: 2rem;
@@ -44,4 +48,9 @@ html {
   #converter #output-temp {
     font-size: 1rem;
     font-weight: bold;
+  }
+  
+  
+  #converter #dateOfRates {
+    font-size: 14px;
   }

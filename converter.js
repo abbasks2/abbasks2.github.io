@@ -6,22 +6,51 @@ var outputField = document.getElementById('output-temp');
 const form = document.getElementById('converter');
 var option_text_1 = 'x';
 var option_text_2 = 'x';
+var conversionChoice = "xxx";
 
-const formulas =[ ['Celsius', 'Fahrenheit', 0, 9/5, 32],
-                             ['Miles', 'Kms', 0, 1.609, 0] ,
-							 ['cms', 'inches', 0, 1/2.54, 0] ];
+const formulas =[ 
+                             ['Distance', 'Miles', 'Kms', 0, 1.609, 0] ,
+							 ['Length', 'cms', 'inches', 0, 1/2.54, 0],
+                             ['Temperature', 'Celsius', 'Fahrenheit', 0, 9/5, 32],
+                             ['Volume', 'Liters', 'US Gallons', 0, 0.264172, 0],
+                             ['Weight', 'Kgs', 'Lbs', 0, 2.2046, 0]
+							 ];
 
 function convertInput(value, fromUnit, toUnit) {
 	// alert('in convertInput with ' + value + ', ' + fromUnit + ', ' + toUnit);
+	// alert("conversionChoice = " + conversionChoice);
+	localStorage.setItem(conversionChoice + "From", fromUnit);
+	localStorage.setItem(conversionChoice + "To", toUnit);
     for (let i=0; i < formulas.length; i++) {
-        if (fromUnit === formulas[i][0]) {
-			return ( ( (formulas[i][2] + value) * formulas[i][3] ) + formulas[i][4]);
-		} else if (fromUnit === formulas[i][1]) {
-			return (((value - formulas[i][4]) / formulas[i][3]) - formulas[i][2]);
+        if (fromUnit === formulas[i][1]) {
+			return ( ( (formulas[i][3] + value) * formulas[i][4] ) + formulas[i][5]);
+		} else if (fromUnit === formulas[i][2]) {
+			return (((value - formulas[i][5]) / formulas[i][4]) - formulas[i][3]);
 		}
 	}
 	return 0;
 }	
+
+function startUp() {
+	conversionChoice = localStorage.getItem("conversionOf");
+	// alert("conversionChoice = " + conversionChoice);
+	document.getElementById("conversionChoice").innerHTML = conversionChoice;
+	for (let i=0; i < formulas.length; i++) {
+        if (conversionChoice === formulas[i][0]) {
+			var conversionChoiceFrom = localStorage.getItem(conversionChoice + "From");
+			var conversionChoiceTo     = localStorage.getItem(conversionChoice + "To");
+			// alert("from and to units are " + conversionChoiceFrom + ", " + conversionChoiceTo);
+			if (conversionChoiceFrom && conversionChoiceTo) {
+			} else {
+				conversionChoiceFrom = formulas[i][1];
+				conversionChoiceTo    = formulas[i][2];
+			}	
+            add_options(conversionChoiceFrom, conversionChoiceTo);
+			break;
+		}
+	}
+}
+
 
 fromUnitField.addEventListener("change", (event) => {
 	// alert('in fromUnitField change with ' + document.getElementById('input-unit').value);
@@ -57,26 +86,20 @@ function add_options(p_option_text_1, p_option_text_2) {
 }
 
 function processInput() {
-    const inputValue = parseFloat(inputField.value);
+    var inputValueStr = inputField.value;
+//	alert("in processInput with inputValue = " + inputValueStr);
+	let r = /[a-z]/gi;
+//	alert('value of r = ' + r);
+//    if(r.test(inputValue)) {
+    inputValueStr = inputValueStr.replace(r, "");
+    var inputValue = parseFloat(inputValueStr);
+ 	inputField.value = inputValueStr;
     const fromUnit = fromUnitField.value;
     const toUnit = toUnitField.value;
     inputUnitDescription.value = fromUnit.toUpperCase();
     const outputValue = convertInput(inputValue, fromUnit, toUnit);
    // alert('outputValue = ' + outputValue);
     outputField.value = outputValue.toFixed(2) + ' ' + toUnit.toUpperCase();
-}
-
-function startUp() {
-	var choice = 	localStorage.getItem("conversionOf");
-	document.getElementById("conversionChoice").innerHTML = choice;
-	// alert("choice = " + choice);
-	if (choice == 'Temperature') {
-		add_options('Fahrenheit', 'Celsius');
-	} else if (choice == 'Distance') {
-		add_options('Kms', 'Miles');
-	} else if (choice == 'Length') {
-		add_options('cms', 'inches');
-	}
 }
 
 form.addEventListener('input', () => {

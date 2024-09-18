@@ -12,7 +12,7 @@
         text-decoration: none;
        display: inline-block;
        font-size: 16px;
-	   width: 150px;
+	   width: 125px;
 	   border-radius:8px;
     }
     </style>
@@ -26,16 +26,27 @@
 
   <body>
     <form id="converionMenu">
-        <h2>Easy Converter - free</h2>
-        <button type="button" class = "button" onclick="convert('Temperature')">Temperature</button>
-		<p>
-        <button type="button" class = "button" onclick="convert('Distance')">Distance</button>
-		<p>
-        <button type="button" class = "button" onclick="convert('Length')">Length</button>
-		<p>
-        <button type="button" class = "button" onclick="convert('Currency')">Currency </button>
-		<p>
-		<p>
+        <h3><i>Easy Converter V 0.1 - free</i></h3>
+		<div class="button-container">
+		    <button type="button" class = "button" onclick="convert('Currency')">Currency </button>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		    <button type="button" class = "button" onclick="convert('Distance')">Distance</button>
+	    </div>
+      	<p>
+		<div class="button-container">
+           <button type="button" class = "button" onclick="convert('Length')">Length</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	       <button type="button" class = "button" onclick="convert('Temperature')">Temperature</button>
+	    </div>
+ 		<p>
+		<div class="button-container">
+	       <button type="button" class = "button" onclick="convert('Volume')">Volume</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class = "button" onclick="convert('Weight')">Weight</button>
+	    </div>
+ 		<p>
+ 		<p>
+    	<p>
 		<p>
 		<h5>Developer email id: abbasks@gmail.com</h5>
     </form>
