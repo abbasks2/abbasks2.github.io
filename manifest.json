@@ -2,7 +2,7 @@
     "lang": "en-us",
     "name": "Easy converter app",
     "short_name": "Easy converter",
-    "description": "Converts temperature (Fahrenheit to / from Celsius) and distance (miles to / from Kms)",
+    "description": "Converts currency, temperature, distance",
     "start_url": "/",
     "background_color": "#2f3d58",
     "theme_color": "#2f3d58",

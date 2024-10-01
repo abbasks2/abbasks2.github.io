@@ -51,7 +51,6 @@ function startUp() {
 	}
 }
 
-
 fromUnitField.addEventListener("change", (event) => {
 	// alert('in fromUnitField change with ' + document.getElementById('input-unit').value);
 	fromUnitSelected = document.getElementById('input-unit').value;

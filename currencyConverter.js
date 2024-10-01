@@ -1,81 +1,259 @@
+
+const debugMode = 0;
 var inputField = document.getElementById('input-temp');
 var inputUnitDescription = document.getElementById('input-unit-description');
 var fromUnitField = document.getElementById('input-unit');
 var toUnitField = document.getElementById('output-unit');
 var outputField = document.getElementById('output-temp');
 var dateOfRatesField = document.getElementById('dateOfRates');
-const form = document.getElementById('converter');
+var dateOfRatesValues = "xxx";
 
+const form = document.getElementById('converter');
+const api = "https://v6.exchangerate-api.com/v6/d5ca6d7af7d630285fe1c6a1/latest/USD";
 // Your API Key: d5ca6d7af7d630285fe1c6a1
 // Example Request: https://v6.exchangerate-api.com/v6/d5ca6d7af7d630285fe1c6a1/latest/USD
 
-var currencyTableOriginal = {"provider":"https://www.exchangerate-api.com","WARNING_UPGRADE_TO_V6":"https://www.exchangerate-api.com/docs/free","terms":"https://www.exchangerate-api.com/terms","base":"USD","date":"2024-09-17","time_last_updated":1726531201,"rates":{"USD":1,"AED":3.67,"AFN":69.48,"ALL":89.6,"AMD":387.26,"ANG":1.79,"AOA":939.73,"ARS":962.08,"AUD":1.48,"AWG":1.79,"AZN":1.7,"BAM":1.76,"BBD":2,"BDT":119.51,"BGN":1.76,"BHD":0.376,"BIF":2903.07,"BMD":1,"BND":1.3,"BOB":6.92,"BRL":5.55,"BSD":1,"BTN":83.89,"BWP":13.28,"BYN":3.27,"BZD":2,"CAD":1.36,"CDF":2847.32,"CHF":0.845,"CLP":926.09,"CNY":7.09,"COP":4179.92,"CRC":518.55,"CUP":24,"CVE":99.16,"CZK":22.6,"DJF":177.72,"DKK":6.72,"DOP":59.97,"DZD":132.29,"EGP":48.42,"ERN":15,"ETB":114.05,"EUR":0.899,"FJD":2.22,"FKP":0.757,"FOK":6.72,"GBP":0.757,"GEL":2.69,"GGP":0.757,"GHS":15.95,"GIP":0.757,"GMD":70.63,"GNF":8672.07,"GTQ":7.73,"GYD":209.23,"HKD":7.79,"HNL":24.79,"HRK":6.78,"HTG":131.79,"HUF":354.36,"IDR":15399.96,"ILS":3.74,"IMP":0.757,"INR":83.89,"IQD":1308.46,"IRR":42045.68,"ISK":136.96,"JEP":0.757,"JMD":157.53,"JOD":0.709,"JPY":140.59,"KES":129.14,"KGS":84.49,"KHR":4064.71,"KID":1.48,"KMF":442.43,"KRW":1319.96,"KWD":0.305,"KYD":0.833,"KZT":480.23,"LAK":21944.5,"LBP":89500,"LKR":301.55,"LRD":199.82,"LSL":17.63,"LYD":4.77,"MAD":9.76,"MDL":17.46,"MGA":4547.63,"MKD":55.55,"MMK":2100.81,"MNT":3386.55,"MOP":8.03,"MRU":39.77,"MUR":45.86,"MVR":15.42,"MWK":1742.65,"MXN":19.24,"MYR":4.3,"MZN":63.92,"NAD":17.63,"NGN":1642.4,"NIO":36.8,"NOK":10.6,"NPR":134.22,"NZD":1.62,"OMR":0.384,"PAB":1,"PEN":3.78,"PGK":3.94,"PHP":55.79,"PKR":278.54,"PLN":3.85,"PYG":7793.02,"QAR":3.64,"RON":4.47,"RSD":105.31,"RUB":90.56,"RWF":1353.51,"SAR":3.75,"SBD":8.31,"SCR":13.44,"SDG":454.05,"SEK":10.18,"SGD":1.3,"SHP":0.757,"SLE":22.6,"SLL":22599.88,"SOS":571.93,"SRD":29.56,"SSP":3243.83,"STN":22.03,"SYP":13139.55,"SZL":17.63,"THB":33.23,"TJS":10.63,"TMT":3.5,"TND":3.03,"TOP":2.32,"TRY":34.01,"TTD":6.77,"TVD":1.48,"TWD":31.85,"TZS":2707.92,"UAH":41.41,"UGX":3715.88,"UYU":41.04,"UZS":12723.36,"VES":36.78,"VND":24545.29,"VUV":117.87,"WST":2.71,"XAF":589.91,"XCD":2.7,"XDR":0.739,"XOF":589.91,"XPF":107.32,"YER":250.27,"ZAR":17.63,"ZMW":26.46,"ZWL":13.96}};
+var currencyTable = {};
+var savedFromUnit = "xxx";
+var savedToUnit = "xxx";
+var currencyTableStored = {
+ "result":"success",
+ "documentation":"https://www.exchangerate-api.com/docs",
+ "terms_of_use":"https://www.exchangerate-api.com/terms",
+ "time_last_update_unix":1726531201,
+ "time_last_update_utc":"Tue, 17 Sep 2024 00:00:01 +0000",
+ "time_next_update_unix":1726617601,
+ "time_next_update_utc":"Wed, 18 Sep 2024 00:00:01 +0000",
+ "base_code":"USD",
+ "conversion_rates":{
+  "USD":1,
+  "AED":3.6725,
+  "AFN":69.4762,
+  "ALL":89.5953,
+  "AMD":387.2631,
+  "ANG":1.7900,
+  "AOA":939.7286,
+  "ARS":962.0800,
+  "AUD":1.4826,
+  "AWG":1.7900,
+  "AZN":1.7004,
+  "BAM":1.7589,
+  "BBD":2.0000,
+  "BDT":119.5104,
+  "BGN":1.7588,
+  "BHD":0.3760,
+  "BIF":2903.0652,
+  "BMD":1.0000,
+  "BND":1.2957,
+  "BOB":6.9214,
+  "BRL":5.5453,
+  "BSD":1.0000,
+  "BTN":83.8880,
+  "BWP":13.2754,
+  "BYN":3.2656,
+  "BZD":2.0000,
+  "CAD":1.3582,
+  "CDF":2847.3207,
+  "CHF":0.8450,
+  "CLP":926.0895,
+  "CNY":7.0943,
+  "COP":4179.9242,
+  "CRC":518.5490,
+  "CUP":24.0000,
+  "CVE":99.1652,
+  "CZK":22.5979,
+  "DJF":177.7210,
+  "DKK":6.7162,
+  "DOP":59.9664,
+  "DZD":132.2916,
+  "EGP":48.4201,
+  "ERN":15.0000,
+  "ETB":114.0476,
+  "EUR":0.8993,
+  "FJD":2.2173,
+  "FKP":0.7574,
+  "FOK":6.7163,
+  "GBP":0.7574,
+  "GEL":2.6942,
+  "GGP":0.7574,
+  "GHS":15.9494,
+  "GIP":0.7574,
+  "GMD":70.6341,
+  "GNF":8672.0691,
+  "GTQ":7.7344,
+  "GYD":209.2322,
+  "HKD":7.7940,
+  "HNL":24.7895,
+  "HRK":6.7760,
+  "HTG":131.7917,
+  "HUF":354.3612,
+  "IDR":15399.9680,
+  "ILS":3.7404,
+  "IMP":0.7574,
+  "INR":83.8880,
+  "IQD":1308.4617,
+  "IRR":42045.6895,
+  "ISK":136.9553,
+  "JEP":0.7574,
+  "JMD":157.5271,
+  "JOD":0.7090,
+  "JPY":140.5925,
+  "KES":129.1407,
+  "KGS":84.4901,
+  "KHR":4064.7101,
+  "KID":1.4826,
+  "KMF":442.4440,
+  "KRW":1319.9619,
+  "KWD":0.3049,
+  "KYD":0.8333,
+  "KZT":480.2325,
+  "LAK":21944.5038,
+  "LBP":89500.0000,
+  "LKR":301.5520,
+  "LRD":199.8219,
+  "LSL":17.6340,
+  "LYD":4.7727,
+  "MAD":9.7578,
+  "MDL":17.4630,
+  "MGA":4547.6259,
+  "MKD":55.5510,
+  "MMK":2100.8051,
+  "MNT":3386.5499,
+  "MOP":8.0278,
+  "MRU":39.7703,
+  "MUR":45.8573,
+  "MVR":15.4206,
+  "MWK":1742.6511,
+  "MXN":19.2416,
+  "MYR":4.3012,
+  "MZN":63.9165,
+  "NAD":17.6340,
+  "NGN":1642.4030,
+  "NIO":36.7962,
+  "NOK":10.5955,
+  "NPR":134.2208,
+  "NZD":1.6150,
+  "OMR":0.3845,
+  "PAB":1.0000,
+  "PEN":3.7805,
+  "PGK":3.9360,
+  "PHP":55.7880,
+  "PKR":278.5429,
+  "PLN":3.8452,
+  "PYG":7793.0224,
+  "QAR":3.6400,
+  "RON":4.4696,
+  "RSD":105.3091,
+  "RUB":90.5641,
+  "RWF":1353.5077,
+  "SAR":3.7500,
+  "SBD":8.3075,
+  "SCR":13.4412,
+  "SDG":454.0603,
+  "SEK":10.1839,
+  "SGD":1.2958,
+  "SHP":0.7574,
+  "SLE":22.5999,
+  "SLL":22599.8778,
+  "SOS":571.9336,
+  "SRD":29.5610,
+  "SSP":3243.8157,
+  "STN":22.0337,
+  "SYP":13139.5457,
+  "SZL":17.6340,
+  "THB":33.2299,
+  "TJS":10.6288,
+  "TMT":3.5000,
+  "TND":3.0348,
+  "TOP":2.3238,
+  "TRY":34.0055,
+  "TTD":6.7653,
+  "TVD":1.4826,
+  "TWD":31.8545,
+  "TZS":2707.9226,
+  "UAH":41.4089,
+  "UGX":3715.8807,
+  "UYU":41.0445,
+  "UZS":12723.3564,
+  "VES":36.7751,
+  "VND":24545.2948,
+  "VUV":117.8666,
+  "WST":2.7136,
+  "XAF":589.9254,
+  "XCD":2.7000,
+  "XDR":0.7394,
+  "XOF":589.9254,
+  "XPF":107.3195,
+  "YER":250.2697,
+  "ZAR":17.6340,
+  "ZMW":26.4618,
+  "ZWL":13.9563
+ }
+}
 
-var currencyListFrom = ["xxx","USD","INR","EUR","AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BAM","BBD","BDT","BGN","BHD","BIF","BMD","BND","BOB","BRL","BSD","BTN","BWP","BYN","BZD","CAD","CDF","CHF","CLP","CNY","COP","CRC","CUP","CVE","CZK","DJF","DKK","DOP","DZD","EGP","ERN","ETB","FJD","FKP","FOK","GBP","GEL","GGP","GHS","GIP","GMD","GNF","GTQ","GYD","HKD","HNL","HRK","HTG","HUF","IDR","ILS","IMP","IQD","IRR","ISK","JEP","JMD","JOD","JPY","KES","KGS","KHR","KID","KMF","KRW","KWD","KYD","KZT","LAK","LBP","LKR","LRD","LSL","LYD","MAD","MDL","MGA","MKD","MMK","MNT","MOP","MRU","MUR","MVR","MWK","MXN","MYR","MZN","NAD","NGN","NIO","NOK","NPR","NZD","OMR","PAB","PEN","PGK","PHP","PKR","PLN","PYG","QAR","RON","RSD","RUB","RWF","SAR","SBD","SCR","SDG","SEK","SGD","SHP","SLE","SLL","SOS","SRD","SSP","STN","SYP","SZL","THB","TJS","TMT","TND","TOP","TRY","TTD","TVD","TWD","TZS","UAH","UGX","UYU","UZS","VES","VND","VUV","WST","XAF","XCD","XDR","XOF","XPF","YER","ZAR","ZMW","ZWL"];
-
-var currencyListTo = ["xxx","INR","USD","EUR","AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BAM","BBD","BDT","BGN","BHD","BIF","BMD","BND","BOB","BRL","BSD","BTN","BWP","BYN","BZD","CAD","CDF","CHF","CLP","CNY","COP","CRC","CUP","CVE","CZK","DJF","DKK","DOP","DZD","EGP","ERN","ETB","FJD","FKP","FOK","GBP","GEL","GGP","GHS","GIP","GMD","GNF","GTQ","GYD","HKD","HNL","HRK","HTG","HUF","IDR","ILS","IMP","IQD","IRR","ISK","JEP","JMD","JOD","JPY","KES","KGS","KHR","KID","KMF","KRW","KWD","KYD","KZT","LAK","LBP","LKR","LRD","LSL","LYD","MAD","MDL","MGA","MKD","MMK","MNT","MOP","MRU","MUR","MVR","MWK","MXN","MYR","MZN","NAD","NGN","NIO","NOK","NPR","NZD","OMR","PAB","PEN","PGK","PHP","PKR","PLN","PYG","QAR","RON","RSD","RUB","RWF","SAR","SBD","SCR","SDG","SEK","SGD","SHP","SLE","SLL","SOS","SRD","SSP","STN","SYP","SZL","THB","TJS","TMT","TND","TOP","TRY","TTD","TVD","TWD","TZS","UAH","UGX","UYU","UZS","VES","VND","VUV","WST","XAF","XCD","XDR","XOF","XPF","YER","ZAR","ZMW","ZWL"];
+var currencyListFrom = ["xxx","USD","INR","EUR","AED","SAR","KWD"];
+var currencyListTo     = ["xxx","INR","USD","EUR","AED","SAR","KWD"];
 
 fromUnitField.addEventListener("change", (event) => {
 	fromUnitSelected = document.getElementById('input-unit').value;
 	inputField.value = 1;
+	// alert("in fromUnitField.addEventListener()");
 	processInput();
 });
 var conversion_of = 'x';
 
-function add_options_from() {
-	// alert("in add_options_from()");
-	document.getElementById('input-unit').options.length = 0;
-    var x = document.getElementById('input-unit');
-	for (let i=0; i < currencyListFrom.length; i++) {
-		if (currencyListFrom[i] == "xxx") {
-			continue;
-		}
-		if (i > 0) {
-			if (currencyListFrom[i] == currencyListFrom[0]) {
-				continue;
-			}
-		}
-        var option_1 = document.createElement("option");
-	    option_1.text = currencyListFrom[i];
-	    option_1.value = currencyListFrom[i];;
-        x.add(option_1);
+function add_currency(element, currency) {
+	// alert("in add_currency with " + element + ", " + currency)
+	if (currency == 'xxx') {
+		return;
 	}
+    var option_1 = document.createElement("option");
+    option_1.text = currency;
+	option_1.value = currency;
+    element.add(option_1);
 }
 
-function add_options_to() {
-	// alert("in add_options_to()");
-	document.getElementById('output-unit').options.length = 0;
-    var x = document.getElementById('output-unit');
-	for (let i=0; i < currencyListTo.length; i++) {
-    	if (currencyListTo[i] == "xxx") {
+function add_options(element_id, initial_currency_list) {
+    // alert("in add_options() with element_id and initial_currency_list " +element_id + ", " + initial_currency_list );
+	document.getElementById(element_id).options.length = 0;
+    var x = document.getElementById(element_id);
+	add_currency(x, initial_currency_list[0]);
+	for (let i=1; i < initial_currency_list.length; i++) {
+		if (initial_currency_list[i] == initial_currency_list[0]) {
 			continue;
 		}
-		if (i > 0) {
-			if (currencyListTo[i] == currencyListTo[0]) {
+		// alert("i, currency = " + i + ", " + initial_currency_list[i]);
+		add_currency(x, initial_currency_list[i]);
+    }
+    var keys = Object.keys(currencyTableStored.conversion_rates);
+	// alert("keys = " + keys);
+	// alert("keys[1] = " + keys[1]); 
+	for (let i=0; i < keys.length; i++) {
+       var c = keys[i];
+	   // alert("currency from table is " + c);
+		if (initial_currency_list.includes(c)) {
 				continue;
-			}
 		}
-        var option_1 = document.createElement("option");
-	    option_1.text = currencyListTo[i];
-	    option_1.value = currencyListTo[i];;
-        x.add(option_1);
+		add_currency(x, c);
 	}
 }
 
 function convertInput(value, fromUnit, toUnit) {
-	// alert('in convertInput with ' + value + ', ' + fromUnit + ', ' + toUnit);
-	// alert('currencyRate = ' + currencyRate);
-	var fromRate = currencyTable.rates[fromUnit];
-	var toRate = currencyTable.rates[toUnit];
+	 // alert('in convertInput with ' + value + ', ' + fromUnit + ', ' + toUnit);
+	 // alert('currencyTable = ' + currencyTable);
+	if (typeof currencyTable == "string") {
+		currencyTable = JSON.parse(currencyTable);
+	   // alert("currencyTable was string and is now = " + currencyTable);
+	}
+	var fromRate = currencyTable.conversion_rates[fromUnit];
+	var toRate = currencyTable.conversion_rates[toUnit];
 	// alert('in convertInput with value, toRate, fromRate ' + value + ', ' + toRate + ', ' + fromRate);
 	return (value * toRate / fromRate);
 }	
 
-var savedFromUnit = "xxx";
-var savedToUnit = "xxx";
-
 function processInput() {
-    var inputValueStr = inputField.value;
+    // alert("in function processInput() ");
+	var inputValueStr = inputField.value;
    	let r = /[a-z]/gi;
     inputValueStr = inputValueStr.replace(r, "");
     var inputValue = parseFloat(inputValueStr);
@@ -84,7 +262,7 @@ function processInput() {
     const toUnit = toUnitField.value;
 	if (fromUnit == savedFromUnit && toUnit == savedToUnit) {
 	} else {
-		// alert("saving currency choices!");
+		// // alert("saving currency choices!");
     	localStorage.setItem("fromCurrency", fromUnit);
 	    localStorage.setItem("toCurrency", toUnit);
 		savedFromUnit = fromUnit;
@@ -97,52 +275,96 @@ function processInput() {
 }
 
 function startUp() {
-	// alert("in startUp() with date = " + currencyTableOriginal.date);
-	getCurrencyRates();
+    // alert("in startUp() with date = " + currencyTableStored.time_last_update_utc);
+	// alert("debugMode = " + debugMode);
+	if (debugMode == 1) {
+	    localStorage.clear();
+	}
+	var currencyTableStr = localStorage.getItem("currencyTableV6");
+	// alert("length of currencyTableStr = " + currencyTableStr.length);
+	if  ( (!currencyTableStr) || currencyTableStr.length < 10)												  {
+		// alert("did not find the stored currency table!"); 
+		getCurrencyRates();
+		return;
+	}
+	// alert("in startup2 currencyTableStr = " + currencyTableStr);
+	currencyTable = JSON.parse(currencyTableStr);
+	if (!currencyTable.time_last_update_utc) {
+		// alert("time_last_update_utc not found!");
+		getCurrencyRates();
+	} else if (!datesSame(currencyTable.time_last_update_utc, getCurrentDate())) {
+    	getCurrencyRates();
+	}	else {
+		displayResults();
+	}
+}
+
+function datesSame(currencyTableDate, currentDate) {
+	// alert("in datesSame");
+	var tableDate = currencyTableDate.replace(",", "");
+	var sizeOfCurrentDate = currentDate.length;
+	tableDate2 = tableDate.substr(0, sizeOfCurrentDate);
+	tableDate2Obj = new Date(tableDate2);
+	tableDate3 = tableDate2Obj.toDateString();
+	// alert("in datesSame check dates " + tableDate3 + ", " + currentDate);
+	return (tableDate3 == currentDate);
 }
 
 async function getCurrencyRates() {
 	// async function getData() {
-    const url = "https://api.exchangerate-api.com/v4/latest/USD";
+	// alert("in getCurrencyRates with api: " + api);
 	try{
-        const response = await fetch(url);
+        const response = await fetch(api);
+		// alert("in getCurrencyRates() with response: " + response);
         if (!response.ok) {
 		    // alert("response not OK");
             // throw new Error(`Response status: ${response.status}`);
-			var currencyTableOld = localStorage.getItem("currencyTable");
-	        if (!currencyTableOld) {
+			var currencyTableStr = localStorage.getItem("currencyTableV6");
+	        if (!currencyTableStr) {
 		         // alert("referencing original currencyTable of app");
-		         currencyTableOld = currencyTableOriginal;
-	        }
-	        displayResults(currencyTableOld);
+		         currencyTable = currencyTableStored;
+	        } else {
+				currencyTable = JSON.parse(currencyTableStr);
+			}
+			displayResults();
             return;
         }
         const json = await response.json();
-        displayResults(json);
+        currencyTable = json;
+		// alert("fetched currencyTable = " + currencyTable);
+        displayResults();
+        // displayResults(json);
   } catch (error) {
      // alert("error in getCurrencyRates " + error.message);
-	 var currencyTableOld = localStorage.getItem("currencyTable");
-	 if (!currencyTableOld) {
+	 var currencyTableStr = localStorage.getItem("currencyTableV6");
+	 if (!currencyTableStr) {
 		 // alert("referencing original currencyTable of app");
-		 currencyTableOld = currencyTableOriginal;
-	 }
-	 displayResults(currencyTableOld);
-  }
+		 currencyTable = currencyTableStored;
+	 } else {
+		 currencyTable = JSON.parse(currencyTableStr);
+     }
+	 displayResults();
+ }
 }
 	
-var dateOfRatesValues = "xxx";
+function getCurrentDate() {
+	// alert("in getCurrentDate()");
+	 var dateObject = new Date(); 
+	 var dateStr = dateObject.toDateString();
+	 // alert("dateStr = " + dateStr);
+    return dateStr;
+}
 
-function displayResults(currency) {
-	// alert("in displayResults");
-	localStorage.setItem("currencyTable", currency);
-	currencyTable = currency;
-	dateOfRates = currencyTable.date;
-	 // const isoDate = "2023-11-10T11:00:00"; 
-	 const dateObject = new Date(dateOfRates); 
-	 const date = dateObject. toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
-	// alert("date of Rates " + dateOfRates);
-	dateOfRatesField.value = dateOfRatesField.value + date + " UTC)";
-
+function displayResults() {
+    // alert("in displayResults");
+	var currencyTableStr = JSON.stringify(currencyTable);
+    // alert("in displayResults, currencyTableStr = " + currencyTableStr);
+    // alert("in displayResults, currencyTable = " + currencyTable);
+	localStorage.setItem("currencyTableV6", currencyTableStr);
+	var date_utc = currencyTable.time_last_update_utc;
+	// alert("date_utc = " + date_utc);
+	var dateOfRates = date_utc.substr(0, 16) + " UTC";
+	dateOfRatesField.value = dateOfRatesField.value + dateOfRates + ")";
 	var fromCurrency = localStorage.getItem("fromCurrency");
 	if (!fromCurrency) {
 	} else {
@@ -151,23 +373,12 @@ function displayResults(currency) {
 	    currencyListTo[0] = toCurrency;
 	}
 	// alert("fromCurrency and toCurrency = " + fromCurrency + ", " + toCurrency);
-    add_options_from();
-	add_options_to();
+    add_options("input-unit", currencyListFrom);
+	add_options("output-unit", currencyListTo);
 	processInput();
 }
 
-function getCurrencyRatesOld() {
-	// Include api for currency change
-	// alert("in getCurrencyRates");
-    const api = "https://api.exchangerate-api.com/v4/latest/USD";
-    fetch(`${api}`)
-        .then(currency => {
-			// alert("before return of currency.json()");
-            return currency.json();
-        }).then(displayResults);
-    // Display results after conversion
-}    
-
 form.addEventListener('input', () => {
+	// alert("in form.addEventListener()");
 	processInput();
 });
