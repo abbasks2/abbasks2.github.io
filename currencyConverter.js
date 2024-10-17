@@ -16,6 +16,263 @@ const api = "https://v6.exchangerate-api.com/v6/d5ca6d7af7d630285fe1c6a1/latest/
 var currencyTable = {};
 var savedFromUnit = "xxx";
 var savedToUnit = "xxx";
+ var country_currency_list = [
+    ["AFGHANISTAN",  "AFN"],
+	["ALAND ISLANDS",  "EUR"],
+    ["ALBANIA",  "ALL"],
+    ["ALGERIA",  "DZD"],
+    ["AMERICAN SAMOA", "USD"],
+    ["ANDORRA", "EUR"],
+    ["ANGOLA", "AOA"],
+    ["ANGUILLA", "XCD"],
+    ["ANTIGUA AND BARBUDA", "XCD"],
+    ["ARGENTINA", "ARS"],
+    ["ARMENIA", "AMD"],
+    ["ARUBA", "AWG"],
+    ["AUSTRALIA", "AUD"],
+    ["AUSTRIA", "EUR"],
+    ["AZERBAIJAN", "AZN"],
+    ["BAHAMAS", "BSD"],
+    ["BAHRAIN", "BHD"],
+    ["BANGLADESH", "BDT"],
+    ["BARBADOS", "BBD"],
+    ["BELARUS", "BYN"],
+    ["BELGIUM", "EUR"],
+    ["BELIZE", "BZD"],
+    ["BENIN", "XOF"],
+    ["BERMUDA", "BMD"],
+    ["BHUTAN", "BTN"],
+    ["BHUTAN", "INR"],
+    ["BOLIVIA", "BOB"],
+    ["BONAIRE", "USD"],
+    ["BOSNIA HERZEGOVINA", "BAM"],
+    ["BOTSWANA", "BWP"],
+    ["BOUVET ISLAND", "NOK"],
+    ["BRAZIL", "BRL"],
+    ["BRITISH INDIAN OCEAN", "USD"],
+    ["BRUNEI DARUSSALAM", "BND"],
+    ["BULGARIA", "BGN"],
+    ["BURKINA FASO", "XOF"],
+    ["BURUNDI", "BIF"],
+    ["CABO VERDE", "CVE"],
+    ["CAMBODIA", "KHR"],
+    ["CAMEROON", "XAF"],
+    ["CANADA", "CAD"],
+    ["CAYMAN ISLANDS", "KYD"],
+    ["CENTRAL AFRICAN REPUBLIC", "XAF"],
+    ["CHAD", "XAF"],
+    ["CHILE", "CLP"],
+    ["CHINA", "CNY"],
+    ["CHRISTMAS ISLAND", "AUD"],
+    ["COCOS (KEELING) ISLANDS", "AUD"],
+    ["COLOMBIA", "COP"],
+    ["COMOROS", "KMF"],
+    ["CONGO", "CDF"],
+    ["CONGO", "XAF"],
+    ["COOK ISLANDS", "NZD"],
+    ["COSTA RICA", "CRC"],
+    ["CÔTE D'IVOIRE", "XOF"],
+    ["CROATIA", "EUR"],
+    ["CUBA", "CUP"],
+    ["CURAÇAO", "ANG"],
+    ["CYPRUS", "EUR"],
+    ["CZECH REPUBLIC", "CZK"],
+    ["DENMARK", "DKK"],
+    ["DJIBOUTI", "DJF"],
+    ["DOMINICA", "XCD"],
+    ["DOMINICAN REPUBLIC", "DOP"],
+    ["ECUADOR", "USD"],
+    ["EGYPT", "EGP"],
+    ["EL SALVADOR", "USD"],
+    ["EQUATORIAL GUINEA", "XAF"],
+    ["ERITREA", "ERN"],
+    ["ESTONIA", "EUR"],
+    ["ETHIOPIA", "ETB"],
+    ["EUROPEAN UNION", "EUR"],
+    ["FALKLAND ISLANDS", "FKP"],
+    ["FAROE ISLANDS", "DKK"],
+    ["FAROE ISLANDS", "FOK"],
+    ["FIJI", "FJD"],
+    ["FINLAND", "EUR"],
+    ["FRANCE", "EUR"],
+    ["FRENCH GUIANA", "EUR"],
+    ["FRENCH POLYNESIA", "XPF"],
+    ["FRENCH SOUTHERN TERRITORIES", "EUR"],
+    ["GABON", "XAF"],
+    ["GAMBIA", "GMD"],
+    ["GEORGIA", "GEL"],
+    ["GERMANY", "EUR"],
+    ["GHANA", "GHS"],
+    ["GIBRALTAR", "GIP"],
+    ["GREECE", "EUR"],
+    ["GREENLAND", "DKK"],
+    ["GRENADA", "XCD"],
+    ["GUADELOUPE", "EUR"],
+    ["GUAM", "USD"],
+    ["GUATEMALA", "GTQ"],
+    ["GUERNSEY", "GBP"],
+    ["GUERNSEY", "GGP"],
+    ["GUINEA", "GNF"],
+    ["GUINEA-BISSAU", "XOF"],
+    ["GUYANA", "GYD"],
+    ["HAITI", "HTG"],
+    ["HAITI", "USD"],
+    ["HEARD ISLAND", "AUD"],
+    ["HOLY SEE", "EUR"],
+     ["HONDURAS", "HNL"],
+    ["HONG KONG", "HKD"],
+    ["HUNGARY", "HUF"],
+    ["ICELAND", "ISK"],
+    ["INDIA", "INR"],
+    ["INDONESIA", "IDR"],
+    ["IMF", "XDR"],
+    ["IRAN", "IRR"],
+    ["IRAQ", "IQD"],
+    ["IRELAND", "EUR"],
+    ["ISLE OF MAN", "GBP"],
+    ["ISLE OF MAN", "IMP"],
+    ["ISRAEL", "ILS"],
+    ["ITALY", "EUR"],
+    ["JAMAICA", "JMD"],
+    ["JAPAN", "JPY"],
+    ["JERSEY", "GBP"],
+    ["JERSEY", "JEP"],
+    ["JORDAN", "JOD"],
+    ["KAZAKHSTAN", "KZT"],
+    ["KENYA", "KES"],
+    ["KIRIBATI", "AUD"],
+    ["KIRIBATI", "KID"],
+    ["KOREA SOUTH", "KRW"],
+    ["KUWAIT", "KWD"],
+    ["KYRGYZSTAN", "KGS"],
+    ["LAOS", "LAK"],
+    ["LATVIA", "EUR"],
+    ["LEBANON", "LBP"],
+    ["LESOTHO", "LSL"],
+    ["LESOTHO", "ZAR"],
+    ["LIBERIA", "LRD"],
+    ["LIBYA", "LYD"],
+    ["LIECHTENSTEIN", "CHF"],
+    ["LITHUANIA", "EUR"],
+    ["LUXEMBOURG", "EUR"],
+    ["MACAO", "MOP"],
+    ["NORTH MACEDONIA", "MKD"],
+    ["MADAGASCAR", "MGA"],
+    ["MALAWI", "MWK"],
+    ["MALAYSIA", "MYR"],
+    ["MALDIVES", "MVR"],
+    ["MALI", "XOF"],
+    ["MALTA", "EUR"],
+    ["MARSHALL ISLANDS", "USD"],
+    ["MARTINIQUE", "EUR"],
+    ["MAURITANIA", "MRU"],
+    ["MAURITIUS", "MUR"],
+    ["MAYOTTE", "EUR"],
+    ["MEXICO", "MXN"],
+    ["MICRONESIA", "USD"],
+    ["MOLDOVA", "MDL"],
+    ["MONACO", "EUR"],
+    ["MONGOLIA", "MNT"],
+    ["MONTENEGRO", "EUR"],
+    ["MONTSERRAT", "XCD"],
+    ["MOROCCO", "MAD"],
+    ["MOZAMBIQUE", "MZN"],
+    ["MYANMAR", "MMK"],
+    ["NAMIBIA", "NAD"],
+    ["NAMIBIA", "ZAR"],
+    ["NAURU", "AUD"],
+    ["NEPAL", "NPR"],
+    ["NETHERLANDS", "EUR"],
+    ["NEW CALEDONIA", "XPF"],
+    ["NEW ZEALAND", "NZD"],
+    ["NICARAGUA", "NIO"],
+    ["NIGER", "XOF"],
+    ["NIGERIA", "NGN"],
+    ["NIUE", "NZD"],
+    ["NORFOLK ISLAND", "AUD"],
+    ["NORWAY", "NOK"],
+    ["OMAN", "OMR"],
+    ["PAKISTAN", "PKR"],
+    ["PANAMA", "PAB"],
+    ["PANAMA", "USD"],
+    ["PAPUA NEW GUINEA", "PGK"],
+    ["PARAGUAY", "PYG"],
+    ["PERU", "PEN"],
+    ["PHILIPPINES", "PHP"],
+    ["PITCAIRN", "NZD"],
+    ["POLAND", "PLN"],
+    ["PORTUGAL", "EUR"],
+    ["PUERTO RICO", "USD"],
+    ["QATAR", "QAR"],
+    ["ROMANIA", "RON"],
+    ["RUSSIAN FEDERATION", "RUB"],
+    ["RWANDA", "RWF"],
+    ["SAINT BARTHÉLEMY", "EUR"],
+    ["SAINT HELENA", "SHP"],
+    ["SAINT KITTS AND NEVIS", "XCD"],
+    ["SAINT LUCIA", "XCD"],
+    ["SAINT MARTIN", "EUR"],
+    ["SAINT PIERRE AND MIQUELON", "EUR"],
+    ["SAINT VINCENT AND GRENADINES", "XCD"],
+    ["SAMOA", "WST"],
+    ["SAN MARINO", "EUR"],
+    ["SAO TOME", "STN"],
+    ["SAUDI ARABIA", "SAR"],
+    ["SENEGAL", "XOF"],
+    ["SERBIA", "RSD"],
+    ["SEYCHELLES", "SCR"],
+    ["SIERRA LEONE", "SLE"],
+    ["SIERRA LEONE", "SLL"],
+    ["SINGAPORE", "SGD"],
+    ["SINT MAARTEN (DUTCH PART)", "ANG"],
+    ["SLOVAKIA", "EUR"],
+    ["SLOVENIA", "EUR"],
+   ["SOLOMON ISLANDS", "SBD"],
+    ["SOMALIA", "SOS"],
+    ["SOUTH AFRICA", "ZAR"],
+    ["SOUTH SUDAN", "SSP"],
+    ["SPAIN", "EUR"],
+    ["SRI LANKA", "LKR"],
+    ["SUDAN", "SDG"],
+    ["SURINAME", "SRD"],
+    ["SVALBARD AND JAN MAYEN", "NOK"],
+    ["SWAZILAND", "SZL"],
+    ["SWEDEN", "SEK"],
+    ["SWITZERLAND", "CHF"],
+    ["SYRIAN ARAB REPUBLIC", "SYP"],
+    ["TAIWAN", "TWD"],
+    ["TAJIKISTAN", "TJS"],
+    ["TANZANIA", "TZS"],
+    ["THAILAND", "THB"],
+    ["TIMOR-LESTE", "USD"],
+    ["TOGO", "XOF"],
+    ["TOKELAU", "NZD"],
+    ["TONGA", "TOP"],
+    ["TRINIDAD AND TOBAGO", "TTD"],
+    ["TUNISIA", "TND"],
+    ["TURKEY", "TRY"],
+    ["TURKMENISTAN", "TMT"],
+    ["TURKS AND CAICOS ISLANDS", "USD"],
+    ["TUVALU", "AUD"],
+    ["TUVALU", "TVD"],
+    ["UGANDA", "UGX"],
+    ["UKRAINE", "UAH"],
+    ["UAE", "AED"],
+    ["UK    ", "GBP"],
+    ["UNITED STATES", "USD"],
+    ["URUGUAY", "UYU"],
+    ["UZBEKISTAN", "UZS"],
+    ["VANUATU", "VUV"],
+    ["VENEZUELA", "VES"],
+    ["VIET NAM", "VND"],
+    ["VIRGIN ISLANDS", "USD"],
+    ["WALLIS AND FUTUNA", "XPF"],
+    ["WESTERN SAHARA", "MAD"],
+    ["YEMEN", "YER"],
+    ["ZAMBIA", "ZMW"],
+    ["ZIMBABWE", "ZWL"]
+	];
+
 var currencyTableStored = {
  "result":"success",
  "documentation":"https://www.exchangerate-api.com/docs",
@@ -191,8 +448,24 @@ var currencyTableStored = {
  }
 }
 
-var currencyListFrom = ["xxx","USD","INR","EUR","AED","SAR","KWD"];
-var currencyListTo     = ["xxx","INR","USD","EUR","AED","SAR","KWD"];
+var currencyListFrom = [    ["XXX", "xxx"],
+										   ["USA", "USD"],
+										   ["INDIA", "INR"],
+										   ["EUROPEAN UNION", "EUR"],
+										   ["U. A. E.", "AED"],
+										   ["SAUDI ARABIA", "SAR"],
+										   ["KUWAIT", "KWD"] ];
+
+var currencyListTo = [        ["XXX", "xxx"],
+										   ["INDIA", "INR"],
+										   ["USA", "USD"],
+										   ["EUROPEAN UNION", "EUR"],
+										   ["U. A. E.", "AED"],
+										   ["SAUDI ARABIA", "SAR"],
+										   ["KUWAIT", "KWD"] ];
+
+// var currencyListFrom = ["xxx","USD","INR","EUR","AED","SAR","KWD"];
+// var currencyListTo     = ["xxx","INR","USD","EUR","AED","SAR","KWD"];
 
 fromUnitField.addEventListener("change", (event) => {
 	fromUnitSelected = document.getElementById('input-unit').value;
@@ -204,12 +477,13 @@ var conversion_of = 'x';
 
 function add_currency(element, currency) {
 	// alert("in add_currency with " + element + ", " + currency)
-	if (currency == 'xxx') {
+	if (currency[1] == 'xxx') {
 		return;
 	}
     var option_1 = document.createElement("option");
-    option_1.text = currency;
-	option_1.value = currency;
+	var choice =  (currency[0] + "       ").substr(0, 8) + " - " + currency[1];
+    option_1.text = choice;
+	option_1.value = choice;
     element.add(option_1);
 }
 
@@ -219,7 +493,7 @@ function add_options(element_id, initial_currency_list) {
     var x = document.getElementById(element_id);
 	add_currency(x, initial_currency_list[0]);
 	for (let i=1; i < initial_currency_list.length; i++) {
-		if (initial_currency_list[i] == initial_currency_list[0]) {
+		if (initial_currency_list[i][1] == initial_currency_list[0][1]) {
 			continue;
 		}
 		// alert("i, currency = " + i + ", " + initial_currency_list[i]);
@@ -228,25 +502,31 @@ function add_options(element_id, initial_currency_list) {
     var keys = Object.keys(currencyTableStored.conversion_rates);
 	// alert("keys = " + keys);
 	// alert("keys[1] = " + keys[1]); 
-	for (let i=0; i < keys.length; i++) {
-       var c = keys[i];
-	   // alert("currency from table is " + c);
-		if (initial_currency_list.includes(c)) {
-				continue;
-		}
-		add_currency(x, c);
+	for (let i=0; i < country_currency_list.length; i++) {
+        var c = country_currency_list[i];
+        add_currency(x, c);
 	}
 }
 
-function convertInput(value, fromUnit, toUnit) {
-	 // alert('in convertInput with ' + value + ', ' + fromUnit + ', ' + toUnit);
+function convertInput(value, fromCurrency, toCurrency) {
+	 // alert('in convertInput with ' + value + ', ' + fromCurrency + ', ' + toCurrency);
 	 // alert('currencyTable = ' + currencyTable);
 	if (typeof currencyTable == "string") {
 		currencyTable = JSON.parse(currencyTable);
 	   // alert("currencyTable was string and is now = " + currencyTable);
 	}
-	var fromRate = currencyTable.conversion_rates[fromUnit];
-	var toRate = currencyTable.conversion_rates[toUnit];
+	var fromRate = currencyTable.conversion_rates[fromCurrency];
+	var toRate = currencyTable.conversion_rates[toCurrency];
+    if (!fromRate) {   
+	    alert(fromCurrency + " not available for conversion!");
+         fromRate = 1;
+         toRate = 1;	   	 
+    }
+    if (!toRate) {   
+	    alert(toCurrency + " not available for conversion!");
+         fromRate = 1;
+         toRate = 1;	   	 
+    }
 	// alert('in convertInput with value, toRate, fromRate ' + value + ', ' + toRate + ', ' + fromRate);
 	return (value * toRate / fromRate);
 }	
@@ -260,18 +540,21 @@ function processInput() {
  	inputField.value = inputValueStr;
    const fromUnit = fromUnitField.value;
     const toUnit = toUnitField.value;
-	if (fromUnit == savedFromUnit && toUnit == savedToUnit) {
-	} else {
+   var fromCountry = fromUnit.substr(0, 8);
+   var fromCurrency = fromUnit.substr(fromUnit.length - 3);
+   var toCountry = toUnit.substr(0, 8);
+   var toCurrency = toUnit.substr(toUnit.length - 3);
+   // alert("from Country & Currency = " + fromCountry + ", " + fromCurrency);
+   // alert("to Country & Currency = " + toCountry + ", " + toCurrency);
 		// // alert("saving currency choices!");
-    	localStorage.setItem("fromCurrency", fromUnit);
-	    localStorage.setItem("toCurrency", toUnit);
-		savedFromUnit = fromUnit;
-		savedToUnit = toUnit;
-	}
-    inputUnitDescription.value = fromUnit.toUpperCase();
-    const outputValue = convertInput(inputValue, fromUnit, toUnit);
+   	localStorage.setItem("fromCountryV2", fromCountry);
+   	localStorage.setItem("fromCurrencyV2", fromCurrency);
+   	localStorage.setItem("toCountryV2", toCountry);
+   	localStorage.setItem("toCurrencyV2", toCurrency);
+    inputUnitDescription.value = fromCurrency;
+    const outputValue = convertInput(inputValue, fromCurrency, toCurrency);
    //  alert('outputValue = ' + outputValue);
-    outputField.value = outputValue.toFixed(2) + ' ' + toUnit.toUpperCase();
+    outputField.value = outputValue.toFixed(2) + ' ' + toCurrency;
 }
 
 function startUp() {
@@ -365,12 +648,16 @@ function displayResults() {
 	// alert("date_utc = " + date_utc);
 	var dateOfRates = date_utc.substr(0, 16) + " UTC";
 	dateOfRatesField.value = dateOfRatesField.value + dateOfRates + ")";
-	var fromCurrency = localStorage.getItem("fromCurrency");
-	if (!fromCurrency) {
+	var fromCountry = localStorage.getItem("fromCountryV2");
+	var fromCurrency = localStorage.getItem("fromCurrencyV2");
+	if (!fromCountry) {
 	} else {
-	    currencyListFrom[0] = fromCurrency;
-	    var toCurrency     = localStorage.getItem("toCurrency");
-	    currencyListTo[0] = toCurrency;
+	    currencyListFrom[0][0] = fromCountry;
+	    currencyListFrom[0][1] = fromCurrency;
+	    var toCountry     = localStorage.getItem("toCountryV2");
+	    var toCurrency     = localStorage.getItem("toCurrencyV2");
+	    currencyListTo[0][0] = toCountry;
+	    currencyListTo[0][1] = toCurrency;
 	}
 	// alert("fromCurrency and toCurrency = " + fromCurrency + ", " + toCurrency);
     add_options("input-unit", currencyListFrom);
